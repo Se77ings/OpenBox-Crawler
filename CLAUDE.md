@@ -44,6 +44,8 @@ apps/extension    extensão do Chrome com WXT (OBC-8)
 - Dentro da camada, imports relativos sem extensão: `import { Money } from '../shared/Money'`.
 - **Domain** organizado por agregado: `websites/`, `crawlRuns/`, `products/`, mais `shared/` e `extraction/`.
 - **Infra** organizada por tipo: `mappings/` (tabelas do Drizzle), `migrations/` (geradas pelo `pnpm --filter @obc/infra db:generate`), `repositories/`, `queries/`, `database/` (conexão e Unit of Work), `extraction/` (extratores de HTML e helpers de parsing em `extraction/parsing/`), `storage/` (capturas em arquivo) e `shared/`.
+- **Application** organizada por agregado, como o domain. `Request` = schema Zod e tipo com o mesmo nome (`RegisterWebsiteRequest.parse(...)` valida; `RegisterWebsiteRequest` tipa); `Response` = interface + função `toXResponse`. A validação com os schemas é feita pela API antes de chamar o serviço. `createApplication(deps)` faz o registro de dependências.
+- Testes da application usam os fakes de `src/application/testing/`, que reproduzem a semântica do Unit of Work real (escritas só no commit, entidades guardadas como cópia).
 - Escritas sempre pelo **Unit of Work**: os repositórios acumulam as alterações e o `commit()` grava tudo numa única transação. Uma unidade por operação (`IUnitOfWorkFactory.create()`).
 - As fronteiras são verificadas pelo `eslint-plugin-boundaries` e pelas dependências de cada `package.json`. Não contorne com imports relativos entre camadas.
 - `domain` e `application` não têm `@types/node`: nada de APIs do Node nessas camadas.

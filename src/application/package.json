@@ -2,12 +2,16 @@
   "name": "@obc/application",
   "version": "0.1.0",
   "private": true,
-  "description": "Casos de uso: serviços de aplicação, DTOs e registro de dependências.",
+  "description": "Orquestra domain e infra: serviços de aplicação, Request/Response e registro de dependências.",
   "type": "module",
   "exports": {
     "./*": "./*.ts"
   },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
-    "@obc/domain": "workspace:*"
+    "@obc/domain": "workspace:*",
+    "zod": "^4.6.7"
   }
 }
