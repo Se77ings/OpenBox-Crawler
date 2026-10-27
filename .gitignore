@@ -1,0 +1,35 @@
+# Dependências
+node_modules/
+
+# Build
+dist/
+*.tsbuildinfo
+.output/
+.wxt/
+
+# Dados locais (SQLite e capturas de HTML)
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# Variáveis de ambiente
+.env
+.env.*
+!.env.example
+
+# Testes
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Editores e SO
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db

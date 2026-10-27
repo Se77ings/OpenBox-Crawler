@@ -1,0 +1,13 @@
+{
+  "name": "@obc/application",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Casos de uso: serviços de aplicação, DTOs e registro de dependências.",
+  "type": "module",
+  "exports": {
+    "./*": "./*.ts"
+  },
+  "dependencies": {
+    "@obc/domain": "workspace:*"
+  }
+}

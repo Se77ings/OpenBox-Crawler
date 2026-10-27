@@ -1,0 +1,22 @@
+{
+  "name": "@obc/api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "API HTTP e composition root: instancia a infra e injeta na application.",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "tsup",
+    "start": "node dist/main.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@obc/application": "workspace:*",
+    "@obc/domain": "workspace:*",
+    "@obc/infra": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^9.0.0",
+    "tsx": "^4.23.15"
+  }
+}

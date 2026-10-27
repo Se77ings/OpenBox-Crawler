@@ -1,0 +1,13 @@
+{
+  "name": "@obc/infra",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Implementações técnicas: persistência (SQLite/Drizzle), queries e extratores de HTML.",
+  "type": "module",
+  "exports": {
+    "./*": "./*.ts"
+  },
+  "dependencies": {
+    "@obc/domain": "workspace:*"
+  }
+}
