@@ -33,6 +33,19 @@ describe('Product', () => {
     expect(product.discountPercent).toBe(33); // 33,33% → 33
   });
 
+  it.each([
+    [200000, 250000, 20],
+    [70000, 100000, 30],
+    [57000, 100000, 43],
+  ])('não sofre erro de ponto flutuante (%i de %i = %i%%)', (price, fullPrice, percent) => {
+    const product = Product.create({
+      ...baseProps,
+      price: Money.fromCents(price),
+      fullPrice: Money.fromCents(fullPrice),
+    });
+    expect(product.discountPercent).toBe(percent);
+  });
+
   it('não tem desconto quando o site não informa o preço "de"', () => {
     expect(Product.create({ ...baseProps, fullPrice: null }).discountPercent).toBeNull();
   });

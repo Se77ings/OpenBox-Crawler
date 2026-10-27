@@ -101,7 +101,8 @@ export class Product {
     if (this.props.fullPrice === null) {
       return null;
     }
-    const ratio = this.props.price.cents / this.props.fullPrice.cents;
-    return Math.floor((1 - ratio) * 100);
+    // Só inteiros: (1 - 2000 / 2500) * 100 dá 19.999999999999996 em ponto flutuante.
+    const savedCents = this.props.fullPrice.cents - this.props.price.cents;
+    return Math.floor((savedCents * 100) / this.props.fullPrice.cents);
   }
 }
