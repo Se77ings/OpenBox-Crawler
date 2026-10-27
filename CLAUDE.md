@@ -42,7 +42,9 @@ apps/extension    extensão do Chrome com WXT (OBC-8)
 - Só os apps geram build. A api é empacotada pelo `tsup` num único arquivo com as camadas dentro.
 - Cada arquivo é importado pelo caminho, como um namespace: `import { Website } from '@obc/domain/websites/Website'`.
 - Dentro da camada, imports relativos sem extensão: `import { Money } from '../shared/Money'`.
-- Organização por agregado: `websites/`, `crawlRuns/`, `products/`, mais `shared/` e `extraction/`.
+- **Domain** organizado por agregado: `websites/`, `crawlRuns/`, `products/`, mais `shared/` e `extraction/`.
+- **Infra** organizada por tipo: `mappings/` (tabelas do Drizzle), `migrations/` (geradas pelo `pnpm --filter @obc/infra db:generate`), `repositories/`, `queries/`, `database/` (conexão e Unit of Work) e `shared/`.
+- Escritas sempre pelo **Unit of Work**: os repositórios acumulam as alterações e o `commit()` grava tudo numa única transação. Uma unidade por operação (`IUnitOfWorkFactory.create()`).
 - As fronteiras são verificadas pelo `eslint-plugin-boundaries` e pelas dependências de cada `package.json`. Não contorne com imports relativos entre camadas.
 - `domain` e `application` não têm `@types/node`: nada de APIs do Node nessas camadas.
 - Valores monetários sempre em **centavos (inteiro)**. Nunca `number` com casas decimais, `REAL` ou `decimal`.

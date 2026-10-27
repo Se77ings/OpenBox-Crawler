@@ -8,6 +8,16 @@
     "./*": "./*.ts"
   },
   "dependencies": {
-    "@obc/domain": "workspace:*"
+    "@obc/domain": "workspace:*",
+    "better-sqlite3": "^13.0.3",
+    "drizzle-orm": "^0.45.4"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "drizzle-kit": "^0.31.11"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate --config drizzle.obc.config.ts && drizzle-kit generate --config drizzle.offers.config.ts"
   }
 }

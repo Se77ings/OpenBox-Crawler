@@ -3,3 +3,6 @@ dist/
 .wxt/
 coverage/
 pnpm-lock.yaml
+
+# Gerado pelo drizzle-kit
+src/infra/migrations/

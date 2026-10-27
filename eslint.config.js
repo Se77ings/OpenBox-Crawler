@@ -22,6 +22,10 @@ export default defineConfig(
     rules: {
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      // Os repositórios usam um driver síncrono (better-sqlite3), mas cumprem contratos
+      // assíncronos do domain. Mantê-los async faz um erro virar uma Promise rejeitada,
+      // em vez de uma exceção síncrona, mesmo sem nenhum await no corpo.
+      '@typescript-eslint/require-await': 'off',
     },
   },
 

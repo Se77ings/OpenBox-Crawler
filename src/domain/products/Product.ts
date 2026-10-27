@@ -1,5 +1,7 @@
 import { DomainError } from '../shared/DomainError';
 import type { Money } from '../shared/Money';
+import { comparePrice } from './comparePrice';
+import type { PriceChange } from './PriceChange';
 import type { ProductCondition } from './ProductCondition';
 import type { ProductKey } from './ProductKey';
 
@@ -18,6 +20,8 @@ export interface ProductProps {
   price: Money;
   /** Preço "de", sem desconto. `null` quando o site não informa ou não há desconto. */
   fullPrice: Money | null;
+  /** Preço na busca anterior. `null` quando o produto aparece pela primeira vez. */
+  previousPrice: Money | null;
   available: boolean;
   collectedAt: Date;
 }
@@ -89,6 +93,9 @@ export class Product {
   get fullPrice(): Money | null {
     return this.props.fullPrice;
   }
+  get previousPrice(): Money | null {
+    return this.props.previousPrice;
+  }
   get available(): boolean {
     return this.props.available;
   }
@@ -104,5 +111,9 @@ export class Product {
     // Só inteiros: (1 - 2000 / 2500) * 100 dá 19.999999999999996 em ponto flutuante.
     const savedCents = this.props.fullPrice.cents - this.props.price.cents;
     return Math.floor((savedCents * 100) / this.props.fullPrice.cents);
+  }
+
+  get priceChange(): PriceChange {
+    return comparePrice(this.props.previousPrice, this.props.price);
   }
 }

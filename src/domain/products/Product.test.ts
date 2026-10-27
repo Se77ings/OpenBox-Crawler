@@ -15,6 +15,7 @@ const baseProps: ProductProps = {
   condition: 'openbox',
   price: Money.parseBRL('R$ 4.500,00'),
   fullPrice: Money.parseBRL('R$ 6.000,00'),
+  previousPrice: null,
   available: true,
   collectedAt: new Date('2026-10-27T12:00:00Z'),
 };
@@ -64,6 +65,21 @@ describe('Product', () => {
     ['url', ''],
   ])('exige o campo %s', (field, value) => {
     expect(() => Product.create({ ...baseProps, [field]: value })).toThrow(DomainError);
+  });
+
+  describe('priceChange', () => {
+    it('é novo quando não há preço anterior', () => {
+      expect(Product.create(baseProps).priceChange).toEqual({ kind: 'new' });
+    });
+
+    it('compara com o preço da busca anterior', () => {
+      const product = Product.create({
+        ...baseProps,
+        previousPrice: Money.parseBRL('R$ 4.800,00'),
+      });
+      const change = product.priceChange;
+      expect(change.kind === 'dropped' && change.amount.cents).toBe(30000);
+    });
   });
 
   describe('key', () => {
